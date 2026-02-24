@@ -1,0 +1,12 @@
+fastapi[standard]
+pydantic
+pypdf
+langchain
+langchain-community
+python-dotenv
+langchain-huggingface
+black
+langchain-openai
+asyncpg
+websockets
+psycopg
