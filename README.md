@@ -4,8 +4,6 @@
 
 Unlock insights from your PDFs with advanced AI-powered conversations. IntelliDocs uses cutting-edge Retrieval-Augmented Generation (RAG) technology to understand your documents and provide accurate, context-aware answers to all your questions.
 
-Check out the backend repository [here](https://github.com/jcarlosvelasco/intellidocs-backend).
-
 ---
 
 ## Technologies Used
@@ -24,7 +22,7 @@ Check out the backend repository [here](https://github.com/jcarlosvelasco/intell
 
 ### Database & ORM
 - **Drizzle ORM** - Type-safe modern ORM to interact with a PostgreSQL database
-- **Supabase** - Vector database for efficient similarity search
+- **Neon** - Vector database for efficient similarity search
 
 ---
 
