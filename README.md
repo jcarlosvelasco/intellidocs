@@ -5,7 +5,6 @@
 Unlock insights from your PDFs with advanced AI-powered conversations. IntelliDocs uses cutting-edge Retrieval-Augmented Generation (RAG) technology to understand your documents and provide accurate, context-aware answers to all your questions.
 
 Check out the backend repository [here](https://github.com/jcarlosvelasco/intellidocs-backend).
-Check out the demo [here](https://intellidocs-pearl.vercel.app). P.D: it might be slow due to the free tier of Render and Vercel.
 
 ---
 
