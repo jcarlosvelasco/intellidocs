@@ -10,13 +10,13 @@ from db.neon import get_conn
 
 
 class SearchDocumentsInput(BaseModel):
-    """Input para la herramienta de búsqueda de documentos"""
+    """Input for the document search tool"""
 
     query: str = Field(description="The search query to find relevant documents")
 
 
 async def get_retriever_tool(conversation_id: str):
-    """Crea la herramienta de recuperación de documentos"""
+    """Creates the document retrieval tool"""
     print(
         f"Retriever, Supabase: Setting up retriever tool with conversation ID: {conversation_id}"
     )
@@ -89,8 +89,7 @@ def retrieve_documents(
     filter_json: dict,
 ) -> List[Dict[str, Any]]:
     """
-    Llama a la función match_documents(query_embedding, match_count, filter)
-    y devuelve una lista de dicts con id, content, metadata.
+    Calls match_documents(query_embedding, match_count, filter) and returns a list of dicts with id, content, metadata.
     """
     with get_conn() as conn:
         with conn.cursor() as cur:

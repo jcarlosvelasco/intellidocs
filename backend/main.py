@@ -381,15 +381,14 @@ def insert_documents(rows):
                     f"Inserting batch {batch_num}/{total_insert_batches} into Neon ({len(batch_rows)} rows)..."
                 )
 
-                # Convertimos rows (dict) a tuplas en el orden de columnas de la tabla
                 values = [
                     (
                         hashlib.md5(
                             (r["conversation_id"] + r["content"]).encode()
                         ).hexdigest(),
                         r["content"],
-                        json.dumps(r["metadata"]),  # dict → psycopg lo castea a jsonb
-                        r["embedding"],  # lista de floats → vector
+                        json.dumps(r["metadata"]),
+                        r["embedding"],
                         r["conversation_id"],
                     )
                     for r in batch_rows

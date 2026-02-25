@@ -34,7 +34,7 @@ class State(TypedDict):
 
 
 def get_openrouter_llm():
-    """Configura el modelo LLM de OpenRouter"""
+    """Configures the OpenRouter LLM model"""
     api_key = os.getenv("OPENROUTER_API_KEY")
     if not api_key:
         raise ValueError("OPENROUTER_API_KEY is not set in .env")
@@ -48,7 +48,7 @@ def get_openrouter_llm():
 
 
 def make_generate_query_or_respond(tools: list):
-    """Crea el nodo para generar consulta o responder"""
+    """Creates the generate query or respond tool"""
 
     async def generate_query_or_respond(state: State):
         print("Agent, In generateQueryOrRespond node")
@@ -67,7 +67,7 @@ def make_generate_query_or_respond(tools: list):
 
 
 async def grade_documents(state: State):
-    """Evalúa si los documentos recuperados son relevantes"""
+    """Evaluates if the retrieved documents are relevant"""
     print("Agent, In gradeDocuments node")
     messages = state["messages"]
 
@@ -89,7 +89,7 @@ async def grade_documents(state: State):
 
 
 async def rewrite(state: State):
-    """Reescribe la pregunta para mejorar la búsqueda"""
+    """Rewrites the question to improve the search"""
     print("Agent, In rewrite node")
     messages = state["messages"]
 
@@ -108,7 +108,7 @@ async def rewrite(state: State):
 
 
 async def generate(state: State):
-    """Genera la respuesta final basada en los documentos recuperados"""
+    """Generates the final response based on the retrieved documents"""
     print("Agent, In generate node")
     messages = state["messages"]
 
@@ -166,7 +166,7 @@ async def generate(state: State):
 
 
 def should_retrieve(state: State) -> Literal["retrieve", "__end__"]:
-    """Determina si debemos recuperar documentos"""
+    """Determines whether to retrieve documents"""
     print("Agent, Deciding whether to retrieve")
     messages = state["messages"]
     last_message = messages[-1]
@@ -182,7 +182,7 @@ def should_retrieve(state: State) -> Literal["retrieve", "__end__"]:
 
 
 def should_generate_or_rewrite(state: State) -> Literal["generate", "rewrite"]:
-    """Determina si debemos generar o reescribir"""
+    """Determines whether to generate or rewrite"""
     messages = state["messages"]
     last_message = messages[-1]
 
@@ -193,7 +193,7 @@ def should_generate_or_rewrite(state: State) -> Literal["generate", "rewrite"]:
 
 
 async def create_graph(conversation_id: str):
-    """Crea y compila el grafo del agente"""
+    """Creates and compiles the agent graph"""
     retriever_tool = await get_retriever_tool(conversation_id)
     tools = [retriever_tool]
 

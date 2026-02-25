@@ -1,21 +1,30 @@
 import { createServerFn } from '@tanstack/react-start'
-import { and, eq } from 'drizzle-orm'
-import { supabaseClient } from '../db/supabase'
+import { and, eq, sql } from 'drizzle-orm'
 import { DeleteConversationDocumentSchema } from '../schema/DeleteConversationDocumentSchema'
 import authMiddleware from '@/middleware/auth-middleware'
 import { db } from '@/index'
 import { conversationDocument } from '@/db/conversation-schema'
+import { documents } from '@/db/document-schema'
 
 export const deleteConversationDocumentFn = createServerFn({})
 	.inputValidator(DeleteConversationDocumentSchema)
 	.middleware([authMiddleware])
 	.handler(async ({ data }) => {
 		const [documentsResult, conversationResult] = await Promise.allSettled([
-			supabaseClient
-				.from('documents')
-				.delete()
-				.eq('conversation_id', data.conversationId)
-				.eq('metadata->document_id', data.conversationDocumentId),
+			db
+				.delete(documents)
+				.where(
+					and(
+						eq(
+							documents.conversationId,
+							data.conversationId.toString(),
+						),
+						eq(
+							sql`${documents.metadata}->>'document_id'`,
+							data.conversationDocumentId.toString(),
+						),
+					),
+				),
 
 			db
 				.delete(conversationDocument)

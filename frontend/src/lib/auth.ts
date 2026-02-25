@@ -47,9 +47,9 @@ export const auth = betterAuth({
 		},
 	},
 	baseURL:
-		process.env.ENVIRONMENT === 'PROD'
-			? process.env.BASE_URL_PROD
-			: process.env.BASE_URL_DEV,
+		process.env.ENVIRONMENT === 'DEV'
+			? process.env.BASE_URL_DEV
+			: process.env.BASE_URL_PROD,
 	socialProviders: {
 		google: {
 			clientId: process.env.GOOGLE_CLIENT_ID as string,

@@ -1,11 +1,11 @@
 import { createServerFn } from '@tanstack/react-start'
 import { and, eq } from 'drizzle-orm'
 import { DeleteConversationSchema } from '../schema/DeleteConversationSchema'
-import { supabaseClient } from '../db/supabase'
 import { getSessionFn } from './getSession'
 import authMiddleware from '@/middleware/auth-middleware'
 import { db } from '@/index'
 import { conversation } from '@/db/conversation-schema'
+import { documents } from '@/db/document-schema'
 
 export const deleteConversation = createServerFn({})
 	.inputValidator(DeleteConversationSchema)
@@ -22,10 +22,15 @@ export const deleteConversation = createServerFn({})
 		}
 
 		const [documentsResult, conversationResult] = await Promise.allSettled([
-			supabaseClient
-				.from('documents')
-				.delete()
-				.eq('conversation_id', data.conversationId),
+			db
+				.delete(documents)
+				.where(
+					eq(
+						documents.conversationId,
+						data.conversationId.toString(),
+					),
+				),
+
 			db
 				.delete(conversation)
 				.where(

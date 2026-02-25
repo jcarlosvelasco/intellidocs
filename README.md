@@ -16,6 +16,15 @@ Unlock insights from your PDFs with advanced AI-powered conversations. IntelliDo
 - **Vite** - Fast development server and build tool
 - **Zustand** - State management library
 
+### Backend
+- **FastAPI** - Fast and efficient web framework for building APIs
+- **LangGraph** - Powerful framework for building LLM applications
+- **Asyncpg** - Asynchronous PostgreSQL driver for Python
+- **Websockets** - Real-time communication protocol for web applications
+- **Pydantic** - Data validation and settings management using Python type annotations
+- **PyPDF** - Python library for working with PDF files
+- **OpenRouter** - Open-source API for accessing LLMs
+
 ### Auth
 - **Better Auth** - Secure authentication and authorization
 - **Resend** - Email delivery service
@@ -58,25 +67,23 @@ Finally, I added websockets support to cover the edge case when the user closes 
 ## Run the project
 
 1. Clone the repository
-2. Install dependencies: `pnpm install`
-3. Start the development server: `pnpm dev`
+2. Start docker
+3. Run with docker-compose up
 4. Open your browser at `http://localhost:3000`
 
 ---
 
 ## Environment Variables
 
-- **SUPABASE_URL** - Supabase URL
-- **SUPABASE_PRIVATE_KEY** - Supabase private key
 - **DATABASE_URL** - PostgreSQL database URL
 - **ENVIRONMENT** - Environment (DEV or PROD)
 - **VITE_ENVIRONMENT** - Vite environment (DEV or PROD)
 - **BASE_URL_DEV** - Base URL for development environment
-- **BASE_URL_PROD** - Base URL for production environment
 - **RESEND_API_KEY** - Resend API key
 - **GOOGLE_CLIENT_ID** - Google client ID
 - **GOOGLE_CLIENT_SECRET** - Google client secret
 - **VITE_BACKEND_URL_DEV** - Backend URL for development environment
+- **VITE_BACKEND_URL_DEV_INTERNAL** - Backend URL for development environment when using Docker
 - **VITE_BACKEND_URL_PROD** - Backend URL for production environment
 
 ---
