@@ -15,7 +15,7 @@ export function MessageSources({ sources }: SourcesProps) {
 		<div className="mt-3 border-t border-slate-600 pt-2">
 			<button
 				onClick={() => setIsExpanded(!isExpanded)}
-				className="flex items-center gap-2 text-xs text-slate-400 hover:text-slate-300 transition-colors"
+				className="flex items-center gap-2 text-xs text-white "
 			>
 				<FileText className="w-3 h-3" />
 				<span>

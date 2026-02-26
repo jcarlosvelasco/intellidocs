@@ -90,5 +90,6 @@ Finally, I added websockets support to cover the edge case when the user closes 
 
 ## Preview
 <p align="center">
-    <img src="images/preview.png" width="600">
+    <img src="images/intellidocs_landing.webp" width="600">
+    <img src="images/intellidocs-dashboard.webp" width="600">
 </p>
