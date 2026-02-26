@@ -44,10 +44,10 @@ export default function Header() {
 	}
 
 	return (
-		<header className="px-8 py-4 flex items-center bg-transparent text-white">
+		<header className="px-8 py-4 flex items-center bg-transparent">
 			<div className="w-full text-xl font-semibold flex flex-row items-center justify-between">
 				<Link to="/home">
-					<h1>IntelliDocs</h1>
+					<h1 className="font-crimson">IntelliDocs</h1>
 				</Link>
 
 				<div className="flex flex-row gap-4">

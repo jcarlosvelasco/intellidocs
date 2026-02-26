@@ -22,13 +22,16 @@ export function ConversationItem({
 
 	return (
 		<div
-			className={`flex flex-row items-center justify-between p-2 gap-4 rounded ${isSelected ? 'bg-slate-700' : 'bg-slate-800 hover:bg-slate-700'}`}
+			className={`group flex flex-row items-center justify-between p-2 gap-4 rounded
+        ${isSelected ? 'text-white bg-slate-500' : 'text-black bg-slate-300 hover:bg-slate-500 hover:text-white'}`}
 			onClick={() => onSelect(conv)}
 		>
-			<p className="text-white line-clamp-1">{conv.title}</p>
+			<p className="line-clamp-1">{conv.title}</p>
+
 			<AlertDialogTrigger asChild>
 				<Trash
-					className="h-5 w-5 cursor-pointer"
+					className={`h-5 w-5 cursor-pointer
+          ${isSelected ? 'text-white' : 'text-black group-hover:text-white'}`}
 					onClick={trashClicked}
 				/>
 			</AlertDialogTrigger>

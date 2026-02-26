@@ -9,4 +9,4 @@ black
 langchain-openai
 asyncpg
 websockets
-psycopg
+psycopg[binary]

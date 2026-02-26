@@ -50,21 +50,32 @@ function RouteComponent() {
 	}
 
 	return (
-		<div className="min-h-svh bg-linear-to-b from-slate-900 via-slate-800 to-slate-900">
+		<div className="min-h-svh ">
 			<Header />
 			<div className="flex h-full flex-col items-center px-6 md:px-10 py-4 md:py-6">
 				<div className="w-full max-w-7xl">
-					<p className="font-bold text-lg mb-12">Settings</p>
+					<p className="font-bold mb-12 font-crimson text-xl">
+						Settings
+					</p>
 					<div className="flex flex-col gap-8">
 						<Dialog>
-							<DialogTrigger asChild>
-								<Button
-									className="cursor-pointer w-fit"
-									variant="destructive"
-								>
-									Delete account
-								</Button>
-							</DialogTrigger>
+							<div className="flex flex-col gap-3">
+								<h2 className="font-crimson font-semibold text-lg">
+									Delete Account
+								</h2>
+								<p className="text-muted-foreground">
+									Delete all your data associated with your
+									account.
+								</p>
+								<DialogTrigger asChild>
+									<Button
+										className="cursor-pointer w-fit"
+										variant="destructive"
+									>
+										Delete account
+									</Button>
+								</DialogTrigger>
+							</div>
 							<DialogContent>
 								<DialogHeader>
 									<DialogTitle>

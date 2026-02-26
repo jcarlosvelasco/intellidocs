@@ -43,7 +43,9 @@ export function ConversationsList({
 			/>
 			<div className="flex flex-col gap-2 w-1/4 h-full overflow-y-auto">
 				<div className="flex flex-row items-center justify-between">
-					<p className="sticky top-0 pb-2 font-bold">Conversations</p>
+					<p className="sticky top-0 pb-2 font-bold font-crimson text-lg">
+						Conversations
+					</p>
 					<Plus
 						className="h-5 w-5 cursor-pointer"
 						onClick={onCreate}

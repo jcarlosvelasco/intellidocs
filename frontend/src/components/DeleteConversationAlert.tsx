@@ -17,7 +17,9 @@ export function DeleteConversationAlert({ onDelete, onCancel }: Props) {
 	return (
 		<AlertDialogContent>
 			<AlertDialogHeader>
-				<AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+				<AlertDialogTitle className="font-crimson text-xl">
+					Are you absolutely sure?
+				</AlertDialogTitle>
 				<AlertDialogDescription>
 					This action cannot be undone. This will permanently delete
 					your account and remove your data from our servers.

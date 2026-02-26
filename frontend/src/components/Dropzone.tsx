@@ -236,12 +236,12 @@ const Dropzone: React.FC<DropzoneProps> = ({
 				{pendingFiles.map((file) => (
 					<div
 						key={`${file.name} + ${file.bytes.length}`}
-						className="flex items-center gap-2 bg-gray-500 rounded-md px-3 py-2 min-w-fit group "
+						className="flex items-center gap-2 bg-muted rounded-md px-3 py-2 min-w-fit group "
 					>
-						<div className="text-gray-600">
+						<div className="text-muted-foreground">
 							{getFileIcon('application/pdf')}
 						</div>
-						<span className="text-sm text-gray-700 max-w-[150px] truncate">
+						<span className="text-sm text-muted-foreground max-w-[150px] truncate">
 							{file.name}
 						</span>
 						<div className="text-gray-200 ">
@@ -293,7 +293,7 @@ const Dropzone: React.FC<DropzoneProps> = ({
 				<div className="flex items-center justify-center gap-2 text-sm ">
 					<Upload className="w-5 h-5" />
 					<span>Drag files here or click to select</span>
-					<span className="text-xs text-gray-300">
+					<span className="text-xs text-muted-foreground">
 						(max. {maxFiles} files)
 					</span>
 				</div>

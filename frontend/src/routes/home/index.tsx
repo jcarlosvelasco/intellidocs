@@ -62,7 +62,7 @@ function App() {
 
 	return (
 		<AlertDialog>
-			<div className="flex flex-col h-screen bg-linear-to-b from-slate-900 via-slate-800 to-slate-900">
+			<div className="flex flex-col h-screen">
 				<Header />
 
 				<div className="flex flex-row px-8 py-6 gap-8 h-full overflow-y-auto">
@@ -87,9 +87,9 @@ function App() {
 									}
 								/>
 							) : (
-								<div className="h-full flex flex-col items-center justify-center gap-8 text-slate-400">
+								<div className="h-full flex flex-col items-center justify-center gap-8 text-muted-foreground">
 									<MessageCircle className="w-16 h-16" />
-									<p className=" text-lg text-center">
+									<p className="text-2xl text-center font-crimson font-semibold text-muted-foreground">
 										Select a conversation or create a new
 										one
 									</p>

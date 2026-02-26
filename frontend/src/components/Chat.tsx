@@ -156,13 +156,13 @@ export function Chat({
 	}
 
 	return (
-		<div className="flex flex-col h-full bg-slate-800/50 rounded-lg border border-slate-700 overflow-hidden">
+		<div className="flex flex-col h-full  rounded-lg border  overflow-hidden">
 			{/* Header */}
-			<div className="px-6 py-4 border-b border-slate-700 bg-slate-800/80">
-				<h2 className="text-white font-semibold text-lg">
+			<div className="px-6 py-4 border-b">
+				<h2 className="font-semibold text-xl font-crimson">
 					Chat with your Documents
 				</h2>
-				<p className="text-slate-400 text-sm">
+				<p className="text-sm text-muted-foreground">
 					Ask any question related to the uploaded files
 				</p>
 			</div>
@@ -190,10 +190,10 @@ export function Chat({
 				)}
 				{isLoading && (
 					<div className="flex gap-3 justify-start">
-						<div className="w-8 h-8 rounded-full bg-blue-600 flex items-center justify-center shrink-0">
+						<div className="w-8 h-8 rounded-full flex items-center justify-center shrink-0">
 							<Bot className="w-5 h-5 text-white" />
 						</div>
-						<div className="bg-slate-700 rounded-lg px-4 py-3">
+						<div className=" rounded-lg px-4 py-3">
 							<div className="flex gap-1">
 								<span
 									className="w-2 h-2 bg-slate-400 rounded-full animate-bounce"
@@ -221,7 +221,7 @@ export function Chat({
 				selectedConversation={selectedConversation}
 			/>
 
-			<div className="px-6 py-4 border-t border-slate-700 bg-slate-800/80">
+			<div className="px-6 py-4 border-t">
 				<form onSubmit={handleSubmit} className="flex gap-2">
 					<input
 						type="text"
@@ -229,7 +229,7 @@ export function Chat({
 						onChange={(e) => setInput(e.target.value)}
 						placeholder="Ask a question..."
 						disabled={isLoading}
-						className="flex-1 bg-slate-700 text-white placeholder-slate-400 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-600 disabled:opacity-50 disabled:cursor-not-allowed"
+						className="flex-1 rounded-lg px-4 py-3 bg-muted focus:outline-none focus:ring-2  disabled:opacity-50 disabled:cursor-not-allowed"
 					/>
 					<button
 						type="submit"
@@ -238,7 +238,7 @@ export function Chat({
 							isLoading ||
 							pendingFiles.length > 0
 						}
-						className="bg-blue-600 hover:bg-blue-700 text-white rounded-lg px-4 py-2 font-medium transition-colors disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-blue-600 flex items-center gap-2"
+						className="rounded-lg px-4 py-2 font-medium bg-black text-white transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
 					>
 						<Send className="w-5 h-5" />
 					</button>

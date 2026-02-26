@@ -24,15 +24,15 @@ export default function MessageCard({ message }: Props) {
 			}`}
 		>
 			{message.role === 'assistant' && (
-				<div className="w-8 h-8 rounded-full bg-blue-600 flex items-center justify-center shrink-0">
+				<div className="w-8 h-8 rounded-full bg-black flex items-center justify-center shrink-0">
 					<Bot className="w-5 h-5 text-white" />
 				</div>
 			)}
 			<div
 				className={`max-w-[70%] rounded-lg px-4 py-3 ${
 					message.role === 'user'
-						? 'bg-blue-600 text-white'
-						: 'bg-slate-700 text-slate-100'
+						? 'bg-slate-800 text-white'
+						: 'bg-slate-500 text-white'
 				}`}
 			>
 				<div className="text-sm/8">
