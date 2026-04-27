@@ -1,16 +1,15 @@
 import json
-import os
 from typing import Annotated, List, Literal, Optional, TypedDict
 
 from langchain_core.messages import AIMessage, HumanMessage, ToolMessage
-from langchain_openai import ChatOpenAI
 from langgraph.graph import END, START, StateGraph
 from langgraph.graph.message import add_messages
 from langgraph.prebuilt import ToolNode
-from pydantic import BaseModel, SecretStr
+from pydantic import BaseModel
 
 from agent.prompts import grade_documents_prompt, rewrite_prompt, system_prompt
 from agent.retriever import get_retriever_tool
+from llm_gateway import get_llm_model, run_chain_with_fallback
 from schemas import GradeDocuments
 
 
@@ -33,20 +32,6 @@ class State(TypedDict):
     messages: Annotated[list, add_messages]
 
 
-def get_openrouter_llm():
-    """Configures the OpenRouter LLM model"""
-    api_key = os.getenv("OPENROUTER_API_KEY")
-    if not api_key:
-        raise ValueError("OPENROUTER_API_KEY is not set in .env")
-
-    return ChatOpenAI(
-        model="xiaomi/mimo-v2-flash",
-        temperature=0,
-        api_key=SecretStr(api_key),
-        base_url="https://openrouter.ai/api/v1",
-    )
-
-
 def make_generate_query_or_respond(tools: list):
     """Creates the generate query or respond tool"""
 
@@ -55,10 +40,19 @@ def make_generate_query_or_respond(tools: list):
         messages = state["messages"]
 
         print("Getting model...")
-        model = get_openrouter_llm().bind_tools(tools)
-        print("Got model!")
-
-        response = await model.ainvoke(messages)
+        try:
+            # Try the preferred model client and bind tools as before
+            model = get_llm_model().bind_tools(tools)
+            print("Got model!")
+            response = await model.ainvoke(messages)
+        except Exception as e:
+            # If the primary model invocation fails (rate limits, unavailable endpoints, etc.)
+            # fall back to the run_chain_with_fallback helper that retries and cascades across models.
+            print(
+                f"Primary model invocation failed: {e}. Falling back to run_chain_with_fallback."
+            )
+            # Attempt cross-model invocation; pass the same messages and the tools so bound tool calls work.
+            response = await run_chain_with_fallback(messages, tools=tools)
 
         print(f"Response from generateQueryOrRespond: {response}")
         return {"messages": [response]}
@@ -71,13 +65,15 @@ async def grade_documents(state: State):
     print("Agent, In gradeDocuments node")
     messages = state["messages"]
 
-    model = get_openrouter_llm().with_structured_output(GradeDocuments)
+    model = get_llm_model().with_structured_output(GradeDocuments)
 
     question = messages[0].content
     context = messages[-1].content
 
-    score = await (grade_documents_prompt | model).ainvoke(
-        {"question": question, "context": context}
+    # Build a bound chain first and let run_chain_with_fallback try it, falling back across models on failure
+    chain = grade_documents_prompt | model
+    score = await run_chain_with_fallback(
+        (chain, {"question": question, "context": context})
     )
 
     decision_message = AIMessage(
@@ -94,9 +90,9 @@ async def rewrite(state: State):
     messages = state["messages"]
 
     question = messages[0].content
-    model = get_openrouter_llm()
 
-    response = await (rewrite_prompt | model).ainvoke({"question": question})
+    # Use run_chain_with_fallback so we can retry and cascade through fallback models on transient errors
+    response = await run_chain_with_fallback((rewrite_prompt, {"question": question}))
 
     new_messages = messages.copy()
     new_messages[0] = HumanMessage(
@@ -142,10 +138,10 @@ async def generate(state: State):
 
     context = "\n\n".join(doc["content"] for doc in documents_with_metadata)
 
-    llm = get_openrouter_llm()
-    rag_chain = system_prompt | llm
-
-    response = await rag_chain.ainvoke({"context": context, "question": question})
+    # Invoke the system prompt + LLM via run_chain_with_fallback (handles retries/fallbacks)
+    response = await run_chain_with_fallback(
+        (system_prompt, {"context": context, "question": question})
+    )
 
     response_with_sources = AIMessage(
         content=response.content,
