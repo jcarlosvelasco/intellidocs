@@ -25,11 +25,17 @@ rewrite_prompt = ChatPromptTemplate.from_template(
 )
 
 # System prompt
-system_prompt = ChatPromptTemplate.from_template(
-    """You are an assistant for question-answering tasks.
-    Use the following pieces of retrieved context to answer the question.
-    If you don't know the answer, just say that you don't know.
-    Use three sentences maximum and keep the answer concise.
-    Question: {question}
-    Context: {context}"""
-)
+# system_prompt = ChatPromptTemplate.from_template(
+#     """You are an assistant for question-answering tasks.
+#     Use the following pieces of retrieved context to answer the question.
+#     If you don't know the answer, just say that you don't know.
+#     Use three sentences maximum and keep the answer concise.
+#     Question: {question}
+#     Context: {context}"""
+# )
+
+
+system_prompt = """You are an assistant for question-answering tasks.
+Use tools when necessary to retrieve context.
+If you don't know the answer, say that you don't know.
+Use three sentences maximum and keep the answer concise."""

@@ -11,4 +11,7 @@ if not conn_string:
 
 
 def get_conn():
+    if not conn_string:
+        raise ValueError("DATABASE_URL must be set in .env")
+
     return psycopg.connect(conn_string)

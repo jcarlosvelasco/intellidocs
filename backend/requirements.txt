@@ -10,3 +10,4 @@ langchain-openai
 asyncpg
 websockets
 psycopg[binary]
+langchain-ollama
