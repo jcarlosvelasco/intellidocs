@@ -9,6 +9,7 @@ from db.neon_db import get_conn
 
 
 def insert_documents(rows):
+    print("Inserting into database...")
     INSERT_BATCH_SIZE = 100
 
     total_insert_batches = (len(rows) + INSERT_BATCH_SIZE - 1) // INSERT_BATCH_SIZE

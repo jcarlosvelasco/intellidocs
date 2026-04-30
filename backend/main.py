@@ -7,7 +7,7 @@ from agent.new_agent import invoke_agent
 from db.db import create_user_message, update_conversation_status
 from db.db_schemas import CreateUserMessageRequest
 from files import create_temp_file, remove_temp_file
-from pdf import process_pdf_file
+from pdf import ingest_documents, process_pdf_file
 from schema.ChatRequest import ChatRequest
 from schema.ChatResponse import ChatResponse
 from schema.ProcessPdfInput import ProcessPDFInput
@@ -74,6 +74,10 @@ async def process_pdf(
     try:
         temp_file_path = create_temp_file(file)
         chunks = process_pdf_file(temp_file_path, data.source_key)
+        await ingest_documents(
+            chunks, data.user_id, data.conversation_id, data.document_id
+        )
+
         pages_processed = len(set(doc.metadata.get("page", 0) for doc in chunks))
 
         return ProcessResponse(

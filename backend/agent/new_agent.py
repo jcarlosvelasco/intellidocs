@@ -8,10 +8,10 @@ from agent.tools.rewrite import rewrite
 from agent.tools.search_documents import search_documents
 
 tools = [search_documents, rewrite, grade_documents_tool]
-llm = get_llm_model()
+llm = get_llm_model(model="openrouter/owl-alpha", temperature=0.1)
 local_llm = get_local_llm(model="gemma4:e2b", temperature=0.2)
 
-agent = create_agent(model=local_llm, tools=tools, system_prompt=system_prompt)
+agent = create_agent(model=llm, tools=tools, system_prompt=system_prompt)
 
 
 def generate_response(question: str, messages: list) -> dict:

@@ -77,7 +77,7 @@ async def ingest_documents(
     BATCH_SIZE = 50
 
     try:
-        print(f"Retriever, Supabase: Ingesting {len(docs)} chunks...")
+        print(f"PDF, Creating embeddings for {len(docs)} chunks...")
 
         enriched_docs = []
         texts_to_embed = []

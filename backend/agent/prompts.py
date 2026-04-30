@@ -35,7 +35,9 @@ rewrite_prompt = ChatPromptTemplate.from_template(
 # )
 
 
-system_prompt = """You are an assistant for question-answering tasks.
-Use tools when necessary to retrieve context.
-If you don't know the answer, say that you don't know.
-Use three sentences maximum and keep the answer concise."""
+system_prompt = """
+You are an assistant with access to a document database. Follow the following steps:
+    - If the user asks information about a document, please use the search_documents tool to retrieve the relevant information and the grade_documents_tool to verify the relevance.
+    - If the relevance is not satisfactory, use the rewrite tool to improve the question and try again.
+    - Never ask the user to provide the document.
+"""
