@@ -18,17 +18,12 @@ async def invoke_agent(conversation_id: str) -> dict:
         if msg["role"] in ROLE_MAP
     ]
 
-    query = history[-1]["content"]
-
     print("History:", history_messages)
 
     graph = await create_graph(conversation_id)
     result = await graph.ainvoke(
         {
             "messages": history_messages,
-            "question": query,
-            "documents": [],
-            "force_retrieve": False,
         }
     )
 
