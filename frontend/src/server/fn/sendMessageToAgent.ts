@@ -22,7 +22,6 @@ export const sendMessageToAgent = createServerFn({
 				'Content-Type': 'application/json',
 			},
 			body: JSON.stringify({
-				query: data.query,
 				conversation_id: data.conversationId,
 			}),
 		})
