@@ -2,6 +2,7 @@ import os
 
 import asyncpg
 from fastapi import Depends, FastAPI, UploadFile, WebSocket, WebSocketDisconnect
+from fastapi.middleware.cors import CORSMiddleware
 
 from agent.invoke import invoke_agent
 from db.db import create_user_message, update_conversation_status
@@ -18,6 +19,17 @@ from ws_manager import ConnectionManager
 
 app = FastAPI()
 manager = ConnectionManager()
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=[
+        "http://localhost:3000",
+        "http://127.0.0.1:3000",
+    ],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 
 async def get_db_pool():
