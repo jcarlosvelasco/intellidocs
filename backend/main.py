@@ -35,7 +35,9 @@ async def chat_endpoint(payload: ChatRequest):
 
     await update_conversation_status(pool, conversation_id, "loading")
 
-    response = await invoke_agent(query=payload.query)
+    response = await invoke_agent(
+        query=payload.query, conversation_id=payload.conversation_id
+    )
 
     message = response["answer"]
     sources = response["sources"]
