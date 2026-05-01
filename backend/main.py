@@ -3,7 +3,7 @@ import os
 import asyncpg
 from fastapi import Depends, FastAPI, UploadFile, WebSocket, WebSocketDisconnect
 
-from agent.new_agent import invoke_agent
+from agent.invoke import invoke_agent
 from db.db import create_user_message, update_conversation_status
 from db.db_schemas import CreateUserMessageRequest
 from files import create_temp_file, remove_temp_file

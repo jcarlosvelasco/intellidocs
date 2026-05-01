@@ -41,3 +41,18 @@ You are an assistant with access to a document database. Follow the following st
     - If the relevance is not satisfactory, use the rewrite tool to improve the question and try again.
     - Never ask the user to provide the document.
 """
+
+generate_prompt = ChatPromptTemplate.from_messages(
+    [
+        (
+            "system",
+            """You are an assistant for question-answering tasks.
+Use the following retrieved context to answer the question.
+Be concise and accurate. If the context doesn't contain enough information, say so.
+
+Context:
+{context}""",
+        ),
+        ("human", "{question}"),
+    ]
+)
