@@ -30,6 +30,7 @@ async def get_db_pool():
 
 @app.post("/chat", response_model=ChatResponse)
 async def chat_endpoint(payload: ChatRequest):
+    print("Chat received!")
     pool = await get_db_pool()
     conversation_id = int(payload.conversation_id)
 

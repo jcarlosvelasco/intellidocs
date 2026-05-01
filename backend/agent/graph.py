@@ -1,3 +1,4 @@
+from langchain_core.messages import ToolMessage
 from langgraph.graph import END, START, StateGraph
 from langgraph.prebuilt import ToolNode
 
@@ -16,10 +17,25 @@ async def create_graph(conversation_id: str):
     tools = [search_documents]
     tool_node = ToolNode(tools)
 
+    async def retrieve_node(state: State):
+        """Retrieve documents - handle both forced retrieves and tool calls."""
+        if state.get("force_retrieve", False):
+            print("[RETRIEVE NODE] Executing forced retrieve")
+            result = await search_documents.ainvoke({"query": state["question"]})
+            return {
+                "messages": [
+                    ToolMessage(content=result, tool_call_id="forced_retrieve")
+                ],
+                "force_retrieve": False,
+            }
+        else:
+            result = await tool_node.ainvoke(state)
+            return result
+
     builder = StateGraph(State)
 
     builder.add_node("generateQueryOrRespond", make_generate_query_or_respond(tools))
-    builder.add_node("retrieve", tool_node)
+    builder.add_node("retrieve", retrieve_node)
     builder.add_node("gradeDocuments", grade_documents)
     builder.add_node("rewrite", rewrite)
     builder.add_node("generate", generate)

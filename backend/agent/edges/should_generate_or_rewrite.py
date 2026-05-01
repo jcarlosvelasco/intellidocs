@@ -2,7 +2,7 @@ from agent.state import State
 
 
 def should_generate_or_rewrite(state: State) -> str:
-    """Si los docs son relevantes → generar. Si no → reescribir."""
+    """If docs are relevant, generate. If not, rewrite."""
     grade = state.get("grade", "no")
     if grade == "yes":
         print("Decision: generate response")

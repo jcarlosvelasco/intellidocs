@@ -8,3 +8,4 @@ class State(TypedDict):
     messages: Annotated[list, add_messages]
     documents: list
     question: str
+    force_retrieve: bool
