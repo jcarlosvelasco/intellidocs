@@ -1,7 +1,7 @@
 from langchain_core.messages import AIMessage
 
 from agent.llm.llm import get_llm_model
-from agent.output import GradeDocuments
+from agent.output.GradeDocuments import GradeDocuments
 from agent.prompts import grade_documents_prompt
 from agent.state import State
 
@@ -15,6 +15,11 @@ async def grade_documents(state: State):
 
     question = messages[0].content
     context = messages[-1].content
+
+    context = messages[-1].content
+    if len(context) > 4000:
+        print("Reducing")
+        context = context[:4000]
 
     score = await (grade_documents_prompt | model).ainvoke(
         {"question": question, "context": context}
